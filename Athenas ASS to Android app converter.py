@@ -21,7 +21,11 @@ def return_charm_values(num, c, read_charms_data):
     return line
 
 
-#def return_relic_values(num, r, read_relic_data):
+def return_relic_values(num, r, read_relic_data):
+    line = r[num]
+    line.split(',')
+    if len(line) ==
+    return line
 
 
 def charms_convert():
