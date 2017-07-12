@@ -3,10 +3,12 @@ import sqlite3
 charms = open("mycharms.txt", 'r', encoding='UTF-8', newline=None)
 c = charms.read()
 c = c.splitlines()
-translate = open('Skilllist Eng-JP.csv','r',encoding='UTF-8')
+translate = open('Skilllist Eng-JP.csv', 'r', encoding='UTF-8')
 read_data = translate.read()
 read_data = read_data.splitlines()
 read_data[0] = 'Amplify;増幅'
+
+
 def return_charm_values(num):
     line = c[num+1]
     line = line.split(',')
@@ -31,8 +33,20 @@ def magic():
     db = conn.cursor()
     db.execute('DELETE FROM charms;')
     for i in range(len(c)-1):
-        list = return_charm_values(i)
-        line = 'INSERT INTO charms VALUES ('+str(list[0])+',\"'+list[1]+'\",\"'+list[2]+'\",'+str(list[3])+','+str(list[4])+','+str(list[5])+');'
+        athenas_values = return_charm_values(i)
+        line = 'INSERT INTO charms VALUES ('\
+               + str(athenas_values[0])\
+               + ',\"'\
+               + athenas_values[1]\
+               + '\",\"'\
+               + athenas_values[2]\
+               + '\",'\
+               + str(athenas_values[3])\
+               + ','\
+               + str(athenas_values[4])\
+               + ','\
+               + str(athenas_values[5])\
+               + ');'
         print(line)
         db.execute(line)
     conn.commit()
