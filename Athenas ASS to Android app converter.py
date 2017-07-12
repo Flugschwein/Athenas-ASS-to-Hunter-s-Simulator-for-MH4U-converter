@@ -47,7 +47,6 @@ def magic():
                + ','\
                + str(athenas_values[5])\
                + ');'
-        print(line)
         db.execute(line)
     conn.commit()
     conn.close()
