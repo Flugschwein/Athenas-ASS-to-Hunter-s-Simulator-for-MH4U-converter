@@ -22,9 +22,12 @@ def return_charm_values(num, c, read_charms_data):
 
 
 def return_relic_values(num, r, read_relic_data):
+    # Format: armor slot,  Blademaster/Gunner, Points, Skill, Defense, Fire Res, Water res, Ice Res, Thndr Res, Drgn Res
     line = r[num]
     line.split(',')
-    if len(line) ==
+    if len(line) == 5:
+
+        line = [num+1, ]
     return line
 
 
