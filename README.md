@@ -3,5 +3,5 @@ This is a script to convert the files containing the charms of a player in [Athe
 
 ***ROOT REQUIRED***
 
-##How to use
+## How to use
 Download the two files in the repo and put the in a folder. Put the `mycharms.txt`file from Athenas ASS and the `charms.db` file from Hunter’s Simulator for MH4U into the same folder. Run the script with Python 3 and you're done.
