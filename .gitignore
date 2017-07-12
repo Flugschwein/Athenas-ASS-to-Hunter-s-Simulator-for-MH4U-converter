@@ -99,3 +99,11 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# special ide
+.idea/
+charms.db
+Skilllist JP.csv
+Skilllist Eng.csv
+mycharms.txt
+Formatting.py
