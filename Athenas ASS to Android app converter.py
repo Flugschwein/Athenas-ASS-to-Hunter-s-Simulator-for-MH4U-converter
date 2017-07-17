@@ -8,11 +8,8 @@ def return_charm_values(num, c, read_translation_data):
     slots, skill1, points1, skill2, points2, = line
     if not points2:
         points2 = 0
-    for i in read_translation_data:
-        if i.split(';')[0] == skill1:
-            skill1 = i.split(';')[1]
-        elif i.split(';')[0] == skill2:
-            skill2 = i.split(';')[1]
+    skill1 = translate_skill(skill1, read_translation_data)
+    skill2 = translate_skill(skill2, read_translation_data)
     line = [num+1, skill1, skill2, points1, points2, slots]
     return line
 
@@ -22,16 +19,32 @@ def return_relic_values(num, r, read_translation_data):
     line = r[num]
     line.split(',')
     if len(line) == 5:
-        item_type, style, points, skill, defence = line
+        item_type, hunter_type, points, skill, defence = line
         item_type = convert_item_type(item_type)
-        style = convert_hunterType(style)
-
-        line = [num+1, ]
+        hunter_type = convert_hunter_type(hunter_type)
+        skill = translate_skill(skill, read_translation_data)
+        line = [num + 1, item_type, hunter_type, skill, points, defence]
+    else:
+        item_type, hunter_type, points, skill, defence, fire, water, ice, thunder, dragon = line
+        item_type = convert_item_type(item_type)
+        hunter_type = convert_hunter_type(hunter_type)
+        skill = translate_skill(skill, read_translation_data)
+        line = [num + 1, item_type, hunter_type, skill, points, defence, fire, water, thunder, ice, dragon]
     return line
 
 
+def translate_skill(skill, read_translation_data):
+    for i in read_translation_data:
+        if skill in i:
+            i.split(';')
+            if i[0] == skill:
+                return i[1]
+            else:
+                return i[0]
+
+
 def convert_hunter_type(num):
-    numbers = {1:0, 2:1 3:1}
+    numbers = {1:0, 2:1, 3:1}
     return numbers[num]
 
 
