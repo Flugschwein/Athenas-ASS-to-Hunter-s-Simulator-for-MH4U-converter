@@ -31,7 +31,7 @@ def return_relic_values(num, r, read_translation_data):
         hunter_type = convert_hunter_type(hunter_type)
         skill = translate_skill(skill, read_translation_data)
         line = [num + 1, item_type, hunter_type, skill, points, defence, fire, water, thunder, ice, dragon]
-    return line
+    return line, len(line) == 5
 
 
 def translate_skill(skill, read_translation_data):
@@ -102,30 +102,45 @@ def relics_convert():
     read_translation_data = translate.read().splitlines()
     read_translation_data[0] = 'Amplify;増幅'
     for i in range(len(r) - 1):
-        values = return_relic_values(i, r, read_translation_data)
-        line = 'INSERT INTO relics VALUES (' \
-               + str(values[0]) \
-               + ',' \
-               + str(values[1]) \
-               + ',' \
-               + str(values[2]) \
-               + ',\"' \
-               + values[3] \
-               + '\",' \
-               + values[4] \
-               + ',' \
-               + values[5] \
-               + ',' \
-               + values[6] \
-               + ',' \
-               + values[7] \
-               + ',' \
-               + values[8] \
-               + ',' \
-               + values[9] \
-               + ',' \
-               + values[10] \
-               + ');'
+        values, weapon = return_relic_values(i, r, read_translation_data)
+        if not weapon:
+            line = 'INSERT INTO relics VALUES (' \
+                   + str(values[0]) \
+                   + ',' \
+                   + str(values[1]) \
+                   + ',' \
+                   + str(values[2]) \
+                   + ',\"' \
+                   + values[3] \
+                   + '\",' \
+                   + values[4] \
+                   + ',' \
+                   + values[5] \
+                   + ',' \
+                   + values[6] \
+                   + ',' \
+                   + values[7] \
+                   + ',' \
+                   + values[8] \
+                   + ',' \
+                   + values[9] \
+                   + ',' \
+                   + values[10] \
+                   + ');'
+        else:
+            line = 'INSERT INTO relics (row_id, itemType, hunterType, skillType, skillPoint, defense) VALUES (' \
+                   + str(values[0]) \
+                   + ',' \
+                   + str(values[1]) \
+                   + ',' \
+                   + str(values[2]) \
+                   + ',\"' \
+                   + values[3] \
+                   + '\",' \
+                   + values[4] \
+                   + ',' \
+                   + values[5] \
+                   + ');'
         db.execute(line)
     db.execute('INSERT INTO sqlite_sequence VALUES (\"relics\",\"' + str(len(r)) + '\");')
     conn.commit()
